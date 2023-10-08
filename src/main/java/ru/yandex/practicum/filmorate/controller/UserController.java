@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/users")
@@ -14,7 +15,7 @@ public class UserController extends BaseController<User> {
 
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        if(user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
+        if (user.getName() == null || user.getName().isBlank() || user.getName().isEmpty()) {
             user.setName(user.getLogin());
             log.info("Имя пользователя изменено на {}", user.getLogin());
         }
@@ -36,7 +37,7 @@ public class UserController extends BaseController<User> {
 
     @Override
     public void validate(User user) {
-        if(user.getLogin().isBlank() || user.getEmail().isBlank() ||
+        if (user.getLogin().isBlank() || user.getEmail().isBlank() ||
         user.getBirthday().getYear() == 0) {
             throw new ValidationException("Не может быть пустым!");
         }
