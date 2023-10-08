@@ -11,6 +11,7 @@ import java.util.Map;
 
 public abstract class BaseController<T extends BaseUnit>  {
     public abstract void validate(T data);
+
     private final Map<Integer,T> storage = new HashMap<>();
 
     private int generatedId;
