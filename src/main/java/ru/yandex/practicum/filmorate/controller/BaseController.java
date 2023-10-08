@@ -11,8 +11,11 @@ import java.util.Map;
 
 public abstract class BaseController<T extends BaseUnit>  {
     public abstract void validate(T data);
+    
     private final Map<Integer,T> storage = new HashMap<>();
+
     private int generatedId;
+
     public T create(T date) {
         validate(date);
         generate();
@@ -22,10 +25,9 @@ public abstract class BaseController<T extends BaseUnit>  {
     }
 
     public T update(T date) {
-        if(!storage.containsKey(date.getId())) {
+        if (!storage.containsKey(date.getId())) {
             throw new DataNotFoundException("Запись в списке не найдена!");
-        }
-        else {
+        } else {
             validate(date);
             storage.put(date.getId(), date);
             return date;
@@ -35,6 +37,7 @@ public abstract class BaseController<T extends BaseUnit>  {
     public List<T> getAll() {
         return  new ArrayList<>(storage.values());
     }
+
     public void generate() {
         generatedId++;
     }
