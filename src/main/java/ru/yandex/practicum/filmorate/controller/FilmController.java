@@ -13,8 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController extends BaseController<Film> {
-
-    private final static LocalDate START_RELEASE_DATE = LocalDate.of(1895,12,28);
+    private static final LocalDate START_RELEASE_DATE = LocalDate.of(1895,12,28);
 
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
@@ -36,11 +35,11 @@ public class FilmController extends BaseController<Film> {
 
     @Override
     public void validate(Film data) {
-        if(data.getReleaseDate().isBefore(START_RELEASE_DATE)) {
+        if (data.getReleaseDate().isBefore(START_RELEASE_DATE)) {
             throw new ValidationException("Дата реализа раньше 28 декабря 1895 года");
         }
 
-        if(data.getName().isEmpty() || data.getDescription().isEmpty()
+        if (data.getName().isEmpty() || data.getDescription().isEmpty()
                 || data.getReleaseDate().getYear() == 0) {
             throw new ValidationException("Невозможно добавить фильм с пустыми полями!");
         }
