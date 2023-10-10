@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.time.LocalDate;
-import java.util.zip.DataFormatException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,7 +53,7 @@ class FilmControllerTest {
                 " Здесь они хотят разыскать господина Огюста Куглова, который задолжал им деньги," +
                 " а именно 20 миллионов. о Куглов, который за время «своего отсутствия»," +
                 " стал кандидатом Коломбани.");
-        assertThrows(ValidationException.class, ()-> filmController.validate(film));
+        assertThrows(ValidationException.class, () -> filmController.validate(film));
     }
 
     @Test
@@ -79,7 +78,7 @@ class FilmControllerTest {
     }
 
     @Test
-    void testUpdateFilmNotAssigned(){
+    void testUpdateFilmNotAssigned() {
         film.setReleaseDate(LocalDate.of(1900,4,6));
         filmController.create(film);
         Film secondFilm = Film.builder()
@@ -89,6 +88,6 @@ class FilmControllerTest {
                 .duration(40)
                 .releaseDate(LocalDate.of(2000, 1, 1))
                 .build();
-        assertThrows(DataNotFoundException.class, ()-> filmController.update(secondFilm));
+        assertThrows(DataNotFoundException.class, () -> filmController.update(secondFilm));
     }
 }
