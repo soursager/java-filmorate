@@ -30,7 +30,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film update(Film film) {
-        if (!checking(film.getId())) {
+        if (!checkingForEntry(film.getId())) {
             throw new DataNotFoundException("Запись в списке не найдена!");
         } else {
             validate(film);
@@ -41,7 +41,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public void delete(Integer id) {
-        if (checking(id)) {
+        if (checkingForEntry(id)) {
             filmStorage.remove(id);
         } else {
             throw new DataNotFoundException("Фильм в списке не найден!");
@@ -50,7 +50,7 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film getById(Integer id) {
-        if (checking(id)) {
+        if (checkingForEntry(id)) {
             return filmStorage.get(id);
         } else {
             throw new DataNotFoundException("Фильм в списке не найден!");
@@ -63,7 +63,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public boolean checking(Integer id) {
+    public boolean checkingForEntry(Integer id) {
         if (!filmStorage.containsKey(id)) {
             throw new DataNotFoundException("Фильма под номером " + id + " не существует");
         }

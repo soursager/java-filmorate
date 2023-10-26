@@ -39,7 +39,7 @@ public class UserService {
         if (checkFriends(userId, friendId)) {
             throw new FriendOnTheListException("Пользователь уже есть в друзьях!");
         }
-          if (userStorage.checking(userId) && userStorage.checking(friendId)) {
+          if (userStorage.checkingForEntry(userId) && userStorage.checkingForEntry(friendId)) {
              addInFriendForList(userId, friendId);
          } else {
              throw new DataNotFoundException("Не существует обоих либо одного пользователя!");
@@ -50,7 +50,7 @@ public class UserService {
         if (!checkFriends(userId, friendId)) {
             throw new FriendOnTheListException("Пользователя нет в списке друзей!");
         }
-         if (userStorage.checking(userId) && userStorage.checking(friendId)) {
+         if (userStorage.checkingForEntry(userId) && userStorage.checkingForEntry(friendId)) {
             removeInFriendForList(userId, friendId);
          } else {
             throw new DataNotFoundException("Не существует обоих либо одного пользователя!");

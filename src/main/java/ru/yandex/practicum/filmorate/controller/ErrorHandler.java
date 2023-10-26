@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.yandex.practicum.filmorate.exception.*;
 import ru.yandex.practicum.filmorate.model.ErrorResponse;
 
+import java.util.Map;
+
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -20,50 +22,20 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleInvalidEmailException(final DataNotFoundException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handlePostNotFoundException(final NotFoundLikeException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFoundException(final DataIsNullException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handlePostNotFoundException(final FriendOnTheListException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handlePostNotFoundException(final NegativeNumberException e) {
-        return new ErrorResponse(
-                e.getMessage()
-        );
-    }
-
-    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(final Throwable e) {
         return new ErrorResponse(
                 "Произошла непредвиденная ошибка."
+        );
+    }
+
+    @ExceptionHandler({DataNotFoundException.class, NotFoundLikeException.class, DataIsNullException.class,
+            FriendOnTheListException.class, NegativeNumberException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleIncorrectCount(final RuntimeException e) {
+        return Map.of(
+                "error", "Ошибка входящих данных",
+                "errorMessage", e.getMessage()
         );
     }
 }

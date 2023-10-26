@@ -15,7 +15,7 @@ public interface AbstractStorage<T extends BaseUnit> {
 
     List<T> getAll();
 
-    boolean checking(Integer id);
+    boolean checkingForEntry(Integer id);
 
     void validate(T date);
 }

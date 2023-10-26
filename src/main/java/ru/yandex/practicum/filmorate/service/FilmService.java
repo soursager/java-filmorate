@@ -40,8 +40,8 @@ public class FilmService {
     }
 
     public void addLikeToMovie(Integer filmId, Integer userId) {
-        filmStorage.checking(filmId);
-        userStorage.checking(userId);
+        filmStorage.checkingForEntry(filmId);
+        userStorage.checkingForEntry(userId);
         if (!checkLikes(filmId, userId)) {
             likeForFilm(filmId, userId);
         } else {
@@ -51,8 +51,8 @@ public class FilmService {
     }
 
     public void removeLikeToMovie(Integer filmId, Integer userId) {
-        filmStorage.checking(filmId);
-        userStorage.checking(userId);
+        filmStorage.checkingForEntry(filmId);
+        userStorage.checkingForEntry(userId);
         if (checkLikes(filmId, userId)) {
         deleteLike(filmId, userId);
         } else {

@@ -21,17 +21,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class FilmControllerTest {
 
     @Autowired
-    FilmController filmController;
+    private FilmController filmController;
     @Autowired
-    UserController userController;
+    private UserController userController;
     @Autowired
-    InMemoryFilmStorage inMemoryFilmStorage;
-    Film film;
-    Film secondFilm;
-    Film lastFilm;
-    User user;
-    User secondUser;
-    String longDescription = "Пятеро друзей ( комик-группа «Шарло»), приезжают в город Бризуль." +
+    private InMemoryFilmStorage inMemoryFilmStorage;
+    private Film film;
+    private Film secondFilm;
+    private Film lastFilm;
+    private User user;
+    private User secondUser;
+    private String longDescription = "Пятеро друзей ( комик-группа «Шарло»), приезжают в город Бризуль." +
             " Здесь они хотят разыскать господина Огюста Куглова, который задолжал им деньги," +
             " а именно 20 миллионов. о Куглов, который за время «своего отсутствия»," +
             " стал кандидатом Коломбани.";

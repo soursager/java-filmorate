@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @RequiredArgsConstructor
 class UserControllerTest {
     @Autowired
-    InMemoryUserStorage inMemoryUserStorage;
+    private InMemoryUserStorage inMemoryUserStorage;
     @Autowired
-    UserController userController;
-    User user;
-    User secondUser;
-    User lastUser;
+    private UserController userController;
+    private User user;
+    private User secondUser;
+    private User lastUser;
 
     @BeforeEach
     void setUp() {

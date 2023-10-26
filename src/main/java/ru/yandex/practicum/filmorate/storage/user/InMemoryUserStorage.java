@@ -27,7 +27,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User update(User user) {
-        if (checking(user.getId())) {
+        if (checkingForEntry(user.getId())) {
             validate(user);
             userStorage.put(user.getId(), user);
             return user;
@@ -42,7 +42,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public boolean checking(Integer id) {
+    public boolean checkingForEntry(Integer id) {
         if (!userStorage.containsKey(id)) {
             throw new DataNotFoundException("Пользователя под номером " + id + " не существует");
         }
@@ -56,7 +56,7 @@ public class InMemoryUserStorage implements UserStorage {
             throw new DataIsNullException("Невозможно передать null");
         }
 
-        if (checking(id)) {
+        if (checkingForEntry(id)) {
             userStorage.remove(id);
         } else {
             throw new DataNotFoundException("Пользователя не существует!");
@@ -65,7 +65,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User getById(Integer id) {
-        if (checking(id)) {
+        if (checkingForEntry(id)) {
             return userStorage.get(id);
         } else {
             throw new DataNotFoundException("Пользователя с таким номером не существует!");

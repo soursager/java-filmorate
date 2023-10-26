@@ -10,5 +10,5 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 public class BaseUnit {
-    private Integer id;
+    private int id;
 }
