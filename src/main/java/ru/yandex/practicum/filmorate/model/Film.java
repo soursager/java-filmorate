@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -22,6 +24,8 @@ public class Film extends BaseUnit {
 
     @NotNull
     private LocalDate releaseDate;
+
+    private List<Integer> likes = new ArrayList<>();
 
     @Positive
     @Min(1)
