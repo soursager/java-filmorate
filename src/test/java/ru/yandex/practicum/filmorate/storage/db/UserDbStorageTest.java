@@ -44,7 +44,7 @@ class UserDbStorageTest {
                 .birthday(LocalDate.of(2000,8,12))
                 .build();
     }
-    
+
     @Test
     void createTest() {
         userDbStorage.create(firstUser);

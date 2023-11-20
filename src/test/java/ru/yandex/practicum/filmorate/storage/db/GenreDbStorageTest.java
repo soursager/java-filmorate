@@ -39,6 +39,7 @@ class GenreDbStorageTest {
                 .name("Драма")
                 .build();
     }
+
     @Test
     void getByIdTest() {
         Genre savedGenre = genreStorage.getById(firstGenre.getId());

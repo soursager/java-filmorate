@@ -28,6 +28,7 @@ class FriendDbStorageTest {
     private User firstUser;
 
     private User secondUser;
+
     @BeforeEach
     void setUp() {
 
@@ -48,6 +49,7 @@ class FriendDbStorageTest {
                 .birthday(LocalDate.of(2000,8,12))
                 .build();
     }
+
     @Test
     void addFriend() {
         userDbStorage.create(firstUser);
