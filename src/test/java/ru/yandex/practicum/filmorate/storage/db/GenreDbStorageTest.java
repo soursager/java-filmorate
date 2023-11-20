@@ -11,8 +11,8 @@ import ru.yandex.practicum.filmorate.storage.interfaces.GenreStorage;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+
 @JdbcTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class GenreDbStorageTest {

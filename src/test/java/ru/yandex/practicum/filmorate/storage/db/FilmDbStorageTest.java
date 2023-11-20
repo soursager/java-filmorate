@@ -90,7 +90,7 @@ class FilmDbStorageTest {
                 .likes(new ArrayList<>())
                 .build();
         filmStorage.create(film);
-        Film nextFilm= Film.builder()
+        Film nextFilm = Film.builder()
                 .id(1)
                 .name("name2")
                 .description("descriptionFilm2")
@@ -114,7 +114,7 @@ class FilmDbStorageTest {
                 .releaseDate(LocalDate.of(1910, 1, 1))
                 .likes(new ArrayList<>())
                 .build();
-        Film nextFilm= Film.builder()
+        Film nextFilm = Film.builder()
                 .name("name2")
                 .description("descriptionFilm2")
                 .duration(30)
@@ -138,7 +138,7 @@ class FilmDbStorageTest {
                 .releaseDate(LocalDate.of(1910, 1, 1))
                 .likes(new ArrayList<>())
                 .build();
-        Film nextFilm= Film.builder()
+        Film nextFilm = Film.builder()
                 .name("name2")
                 .description("descriptionFilm2")
                 .duration(30)
@@ -185,7 +185,7 @@ class FilmDbStorageTest {
         filmStorage.addLike(film1.getId(), user2.getId());
          String countRow = "select COUNT(USER_ID) from LIKE_FILM where FILM_ID = ?";
          SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(countRow, film1.getId());
-         if(sqlRowSet.next()) {
+         if (sqlRowSet.next()) {
              film1.setRate(sqlRowSet.getInt("COUNT(USER_ID)"));
          }
         assertEquals(film1.getRate(), 2, "Неверное количество лайков после добавления");
@@ -202,7 +202,7 @@ class FilmDbStorageTest {
         int rate = 0;
         String countDel = "select COUNT(USER_ID) from LIKE_FILM where FILM_ID = ?";
         SqlRowSet sqlRowDel = jdbcTemplate.queryForRowSet(countDel, film.getId());
-        if(sqlRowDel.next()) {
+        if (sqlRowDel.next()) {
             rate = (sqlRowDel.getInt("COUNT(USER_ID)"));
         }
         film.setRate(rate);
