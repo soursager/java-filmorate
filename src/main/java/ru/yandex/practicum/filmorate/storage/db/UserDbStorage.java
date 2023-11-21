@@ -35,12 +35,12 @@ public class UserDbStorage implements UserStorage {
     public User update(User user) {
         if (checkingForEntry(user.getId())) {
             validate(user);
-            String sqlQuery = "update USERS " +
-                    "set EMAIL = ?," +
-                    "LOGIN = ?," +
-                    "NAME = ?," +
-                    "BIRTHDAY = ? " +
-                    "where USER_ID = ?";
+            String sqlQuery = "update users " +
+                    "set email = ?," +
+                    "login = ?," +
+                    "name = ?," +
+                    "birthday = ? " +
+                    "where user_id = ?";
             jdbcTemplate.update(sqlQuery, user.getEmail(), user.getLogin(), user.getName(),
                     user.getBirthday(), user.getId());
             return user;
@@ -52,13 +52,13 @@ public class UserDbStorage implements UserStorage {
     @Override
     public void delete(Integer id) {
         checkingForEntry(id);
-        String sqlQuery = "delete from USERS where USER_ID = ?";
+        String sqlQuery = "delete from users where user_id = ?";
         jdbcTemplate.update(sqlQuery, id);
     }
 
     @Override
     public User getById(Integer id) {
-        String sqlQuery = "select * from USERS where USER_ID = ?";
+        String sqlQuery = "select * from users where user_id = ?";
         List<User> users = jdbcTemplate.query(sqlQuery,UserDbStorage::createUser, id);
         if (users.isEmpty()) {
             throw new DataNotFoundException("Что-то пошло не так!");
@@ -100,11 +100,11 @@ public class UserDbStorage implements UserStorage {
 
     static User createUser(ResultSet rs, int rowNum) throws SQLException {
         return User.builder()
-                .id(rs.getInt("USER_ID"))
-                .email(rs.getString("EMAIL"))
-                .login(rs.getString("LOGIN"))
-                .name(rs.getString("NAME"))
-                .birthday(rs.getDate("BIRTHDAY").toLocalDate())
+                .id(rs.getInt("user_id"))
+                .email(rs.getString("email"))
+                .login(rs.getString("login"))
+                .name(rs.getString("name"))
+                .birthday(rs.getDate("birthday").toLocalDate())
                 .build();
     }
 }

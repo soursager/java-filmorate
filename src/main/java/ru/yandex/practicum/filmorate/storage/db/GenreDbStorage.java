@@ -18,7 +18,7 @@ public class GenreDbStorage implements GenreStorage {
 
     @Override
     public Genre getById(Integer id) {
-        String sqlQuery = "select * from genre where GENRE_ID = ?";
+        String sqlQuery = "select * from genre where genre_id = ?";
         List<Genre> genres = jdbcTemplate.query(sqlQuery, GenreDbStorage::createGenre, id);
         if (genres.size() != 1) {
             throw new DataNotFoundException("Неверное количество жанров!");
@@ -34,8 +34,8 @@ public class GenreDbStorage implements GenreStorage {
 
     static Genre createGenre(ResultSet rs, int rowNum) throws SQLException {
         return Genre.builder()
-                .id(rs.getInt("GENRE_ID"))
-                .name(rs.getString("GENRE_NAME"))
+                .id(rs.getInt("genre_id"))
+                .name(rs.getString("genre_name"))
                 .build();
     }
 

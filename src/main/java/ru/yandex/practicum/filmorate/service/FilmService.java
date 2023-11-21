@@ -54,6 +54,6 @@ public class FilmService {
     }
 
     public List<Film> outputOfPopularMovies(Integer count) {
-    return filmDbStorage.outputOfPopularMovies(count);
+    return filmDbStorage.getPopularMovies(count);
     }
 }

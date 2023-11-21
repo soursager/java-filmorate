@@ -41,7 +41,7 @@ public class Film extends BaseUnit {
     private int duration;
 
     @Builder.Default
-    private Set<Genre> genres = new TreeSet<>();
+    private Set<Genre> genres = new HashSet<>();
 
       public Map<String, Object> toMap() {
         Map<String, Object> values = new HashMap<>();

@@ -26,26 +26,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class FilmDbStorageTest {
     private final JdbcTemplate jdbcTemplate;
-    private  GenreDbStorage genreDbStorage;
-    private  MpaDbStorage mpaDbStorage;
-
     private  FilmDbStorage filmStorage;
     private  UserDbStorage userDbStorage;
     private Film lastFilm;
     private Film secondFilm;
     private User firstUser;
-
-    Mpa mpa = Mpa.builder()
-            .id(1)
-            .name("G")
-            .build();
+    private Mpa mpa;
 
     @BeforeEach
     void setUp() {
         userDbStorage = new UserDbStorage(jdbcTemplate);
-        genreDbStorage = new GenreDbStorage(jdbcTemplate);
-        mpaDbStorage = new MpaDbStorage(jdbcTemplate);
-        filmStorage = new FilmDbStorage(jdbcTemplate,mpaDbStorage,genreDbStorage);
+        filmStorage = new FilmDbStorage(jdbcTemplate);
+
+        mpa = Mpa.builder()
+                .id(1)
+                .name("G")
+                .build();
 
         lastFilm = Film.builder()
                 .name("nameFilm1")
@@ -81,15 +77,7 @@ class FilmDbStorageTest {
 
     @Test
     void updateFilmTest() {
-        Film film = Film.builder()
-                .name("name1")
-                .description("descriptionFilm1")
-                .duration(25)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1910, 1, 1))
-                .likes(new ArrayList<>())
-                .build();
-        filmStorage.create(film);
+        filmStorage.create(secondFilm);
         Film nextFilm = Film.builder()
                 .id(1)
                 .name("name2")
@@ -106,78 +94,32 @@ class FilmDbStorageTest {
 
     @Test
     void getAllTest() {
-        Film film = Film.builder()
-                .name("name1")
-                .description("descriptionFilm1")
-                .duration(25)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1910, 1, 1))
-                .likes(new ArrayList<>())
-                .build();
-        Film nextFilm = Film.builder()
-                .name("name2")
-                .description("descriptionFilm2")
-                .duration(30)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1967, 5, 25))
-                .likes(new ArrayList<>())
-                .build();
-        filmStorage.create(film);
-        filmStorage.create(nextFilm);
+        filmStorage.create(secondFilm);
+        filmStorage.create(lastFilm);
         List<Film> filmList = filmStorage.getAll();
         assertEquals(2, filmList.size(), "неверное количество фильмов");
     }
 
     @Test
     void getFilmByIdTest() {
-        Film film = Film.builder()
-                .name("name1")
-                .description("descriptionFilm1")
-                .duration(25)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1910, 1, 1))
-                .likes(new ArrayList<>())
-                .build();
-        Film nextFilm = Film.builder()
-                .name("name2")
-                .description("descriptionFilm2")
-                .duration(30)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1967, 5, 25))
-                .likes(new ArrayList<>())
-                .build();
-        filmStorage.create(film);
-        filmStorage.create(nextFilm);
+        filmStorage.create(secondFilm);
+        filmStorage.create(lastFilm);
         Film getFilm = filmStorage.getById(2);
         assertEquals(2, getFilm.getId(), "фильм вернулся неверный");
-        assertThat(getFilm).hasFieldOrPropertyWithValue("name", "name2");
+        assertThat(getFilm).hasFieldOrPropertyWithValue("name", "nameFilm1");
     }
 
      @Test
     void addLikeTest() {
-        User user = User.builder()
-                .name("nameUser")
-                .email("fork@yandex.ru")
-                .login("fork")
-                .birthday(LocalDate.of(1994,8,12))
-                .build();
          User nextUser = User.builder()
                  .name("nameUser1")
                  .email("fork1@yandex.ru")
                  .login("fork1")
                  .birthday(LocalDate.of(1998,8,12))
                  .build();
-        Film film = Film.builder()
-                .name("name1")
-                .description("descriptionFilm1")
-                .duration(25)
-                .mpa(mpa)
-                .releaseDate(LocalDate.of(1910, 1, 1))
-                .likes(new ArrayList<>())
-                .build();
-        userDbStorage.create(user);
+        userDbStorage.create(firstUser);
         userDbStorage.create(nextUser);
-        filmStorage.create(film);
+        filmStorage.create(secondFilm);
         Film film1 = filmStorage.getById(1);
         User user1 = userDbStorage.getById(1);
         User user2 = userDbStorage.getById(2);
@@ -218,7 +160,7 @@ class FilmDbStorageTest {
         Film film1 = filmStorage.getById(2);
         User user = userDbStorage.getById(1);
         filmStorage.addLike(film.getId(), film.getId());
-        List<Film> popular = filmStorage.outputOfPopularMovies(2);
+        List<Film> popular = filmStorage.getPopularMovies(2);
         assertEquals(popular.get(0).getName(), film.getName());
     }
 

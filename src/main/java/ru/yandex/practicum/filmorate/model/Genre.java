@@ -15,7 +15,7 @@ public class Genre extends BaseUnit implements Comparable<Genre> {
     @NotBlank
     private String name;
 
-    @Override
+       @Override
     public int compareTo(Genre o) {
         return getId() - o.getId();
     }

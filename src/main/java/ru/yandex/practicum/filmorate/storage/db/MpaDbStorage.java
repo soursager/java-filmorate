@@ -19,7 +19,7 @@ public class MpaDbStorage implements MpaStorage {
 
     @Override
     public Mpa getById(Integer id) {
-        String sqlQuery = ("select * from mpa where MPA_ID = ?");
+        String sqlQuery = ("select * from mpa where mpa_id = ?");
         List<Mpa> mpas = jdbcTemplate.query(sqlQuery, MpaDbStorage::createMpa, id);
         if (mpas.size() != 1) {
             throw new DataNotFoundException("Неверное количество рейтингов!");
@@ -35,8 +35,8 @@ public class MpaDbStorage implements MpaStorage {
 
     static Mpa createMpa(ResultSet rs, int rowNum) throws SQLException {
         return Mpa.builder()
-                .id(rs.getInt("MPA_ID"))
-                .name(rs.getString("MPA_NAME"))
+                .id(rs.getInt("mpa_id"))
+                .name(rs.getString("mpa_name"))
                 .build();
     }
 }
