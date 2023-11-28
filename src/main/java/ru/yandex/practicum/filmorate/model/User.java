@@ -31,4 +31,14 @@ public class User extends BaseUnit {
 
     @PastOrPresent
     private LocalDate birthday;
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> values = new HashMap<>();
+        values.put("user_id", getId());
+        values.put("email", email);
+        values.put("login", login);
+        values.put("name", name);
+        values.put("birthday", birthday);
+        return values;
+    }
 }
